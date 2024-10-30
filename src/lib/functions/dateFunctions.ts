@@ -35,26 +35,27 @@ let dia, mes, ano;
       }
 
 // Convertir HORA en timestamp   
-      export function formatHour(fecha){
+      export function formatHour(fecha: string | number | Date){
           fecha = new Date(+fecha)
-          let minutes = fecha.getMinutes();
-            if(minutes.length < 2){
-              minutes = '0' + minutes
+          let minutes: number = fecha.getMinutes();
+            if(minutes < 10){
+              minutes = `0${minutes}` as unknown as number
             }
+          const minutesStr = minutes < 10 ? `0${minutes}` : minutes.toString();
           let hora = fecha.getHours();
           if (hora > 12){
             hora = hora - 12
           }
           
           if(hora < 10){
-              hora = '0' + hora
+              hora = `0${hora}` as unknown as number
             }
             
           let dia = fecha.getDate();
           if(dia < 10)
-            dia = '0' + dia
+            dia = `0${dia}` as unknown as number
 
-          return (`${hora}:${minutes}`)
+          return (`${hora}:${minutesStr}`)
        }
       
 
@@ -74,11 +75,11 @@ let dia, mes, ano;
           fecha = new Date()
           const hora = fecha.getHours()
           if(hora < 12){
-            saludoHora = "Buenos días"
+            saludoHora = "Buenos días. "
           } else if (hora < 21){
-            saludoHora = "Buenas tardes"
+            saludoHora = "Buenas tardes. "
           } else {
-            saludoHora = "Buenas noches"
+            saludoHora = "Buenas noches. "
           }
           return saludoHora
         }

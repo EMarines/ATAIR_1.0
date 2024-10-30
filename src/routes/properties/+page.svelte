@@ -71,20 +71,20 @@
 	</div>
 
 <style lang="scss">
-	.content-row {
-		margin-bottom: 40px;
-		.content-row-header {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			margin-bottom: 20px;
-			.section-title {
-				font-size: functions.toRem(22);
-				font-weight: 600;
-				margin: 0;
-			}
-		}
-	}
+	// .content-row {
+	// 	margin-bottom: 40px;
+	// 	.content-row-header {
+	// 		display: flex;
+	// 		align-items: center;
+	// 		justify-content: space-between;
+	// 		margin-bottom: 20px;
+	// 		.section-title {
+	// 			font-size: functions.toRem(22);
+	// 			font-weight: 600;
+	// 			margin: 0;
+	// 		}
+	// 	}
+	// }
   .card_container {      
     display: flex;
     flex-wrap: wrap;

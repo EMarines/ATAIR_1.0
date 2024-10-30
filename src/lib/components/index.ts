@@ -7,6 +7,7 @@ export { default as IconButton } from './IconButton.svelte';
 export { default as CardProperty } from './CardProperty.svelte';
 export { default as CardContact } from './CardContact.svelte';
 export { default as PropertyPage } from './PropertyPage.svelte';
+export { default as ContactPage } from './ContactPage.svelte';
 export { default as Pagination } from './Pagination.svelte';
 export { default as TextArea } from './TextArea.svelte';
 

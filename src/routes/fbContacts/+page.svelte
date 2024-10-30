@@ -13,7 +13,9 @@
   <div class="cards__container">
     {#each fbContacts as contact}
       <div class="card__container" >
+			  <a href="/fbContact/{contact.id}">
         <CardContact {contact}/>         
+			</a>
       </div>
     {/each}        
   </div> 

@@ -1,16 +1,29 @@
 <script lang="ts">
   import { User } from 'lucide-svelte'
+	import { capitalize } from "$lib/functions/capitalize"
   export let contact;
+
+  const formatName = (text?: string) => {
+    return text ? capitalize(text) : '';
+  }
 
   // console.log(contact, "desde cardcontact");
 </script>
 
 <div class="card">
  
-  <h4 class="truncate-1" title={contact.name + ' ' + contact.lastname}>{contact.name} {contact.lastname}</h4>
+  <h4 class="truncate-1" title={`${formatName(contact?.name)} ${formatName(contact?.lastname)}`}>
+    {formatName(contact?.name)} {formatName(contact?.lastname)}
+  </h4>
   <p>{contact.telephon}</p>
-  <p class="truncate-1" title={contact.rangeProp}>{contact.rangeProp}</p>
-	<p class="truncate-1" title={contact.happecreatedAtned_at}>{contact.createdAt}</p>
+	{#if contact.budget}
+		<p>{contact.budget}</p>
+	{:else if contact.rangeProp}
+		<p >{contact.rangeProp}</p>
+	{:else}
+		<p>Sin Presupuesto</p>
+	{/if}
+	<p >{contact.createdAt}</p>
 </div>
 
 

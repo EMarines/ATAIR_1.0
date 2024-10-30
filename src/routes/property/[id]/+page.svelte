@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { collection, addDoc } from 'firebase/firestore';
+	import { db } from '$lib/firebase/firebase';
 	import { PropertyPage, Button } from '$components';
 	import type { PageData } from './$types';
 	import { Search, Send } from 'lucide-svelte';
 	import  { filtPropContInte }  from '$lib/functions/filContacts';
 	import { CardContact } from '$components';
-	import { sendWA } from '$lib/functions/sendWatsApp';
-	import type { Contact, Binnacles } from '$lib/types'; 
+	import { diaTarde } from '$lib/functions/dateFunctions';
+	import { capitalize } from '$lib/functions/capitalize';
+	import type { Contact, Binnacles, Property } from '$lib/types'; 
 
 	export let data: PageData;
 
@@ -23,24 +26,22 @@
 	let poroShowTo =["Por_Enviar", "Ya_Se_Envió", "Posobles_Interesados" ];
 	let contToRender: Contact[] = [];
 	let conInt: Contact[] = [];
-	// let contInitial: Contact[] = [];
+	let saludoHora = "";
+	let contToSend: Contact;
+	let systStatus = "";
+	const property = data.property;
 
 	$: currBinnList = data.currBinnList as Binnacles[];
 	$: contFalt = contIntToSend - sig;
 	$: contIntToSend = contCheck.length;
-	$: property = data.property;
 	$: color = data.color;
 	$: contactsFiltered = contToRender as Contact[];
 	$: fbContacts = data.fbContacts as Contact[];
+	$: contact = contToSend;
 
 	type ContactOption = "Posobles_Interesados" | "Por_Enviar" | "Ya_Se_Envió";
 
-	function urtPublic () {
-		publicUrl = (data.property.public_url).replace('easybroker.com/mx/listings', 'matchhome.net/property')
-	}
-	urtPublic();
-
-		function listToRender() {				// Opción propuesta por Cursor	
+	function listToRender() {				// Opción propuesta por Cursor	
     contCheck = [];
     showBtn = true;
     contInterest = filtPropContInte(property, fbContacts);
@@ -69,29 +70,83 @@
             return fbContacts.filter(cont => sentTelephones.has(cont.telephon));
         }
     };
-    contToRender = options[contInterested as ContactOption]();
-};
+			contToRender = options[contInterested as ContactOption]();
+	};
 
-		function sendProperty(){
-			console.log("enviaste esta propiedad por WhatsApp");
-			// sendWA()
-		}
-	
-	function sendWhatsApp(){
-		// console.log("enviaste esta propiedad por WhatsApp");
-		sendWA()
-	}
-
-	function handleFindContacts() {
+	function handleFindContacts(property: Property) {
 		conInt = findContacts();
 		show__contacts = true;
 		contInterested = "Por_Enviar"
 	}
-
+	
 	function findContacts(){
 		contToRender = filtPropContInte(property, fbContacts);
 		return contToRender; // Devuelve el valor de contToRender
 	}
+
+	// Envía en bucle la propiedad a uno o varios contactos
+	function sendProperty() {
+			if(mensaje === ""){
+				alert("Tienes que escribir un mensaje para enviar las propiedades")
+				return
+			}
+			contToSend = contCheck[sig]
+			contFalt = contCheck.length - (sig + 1)
+			systStatus = "sendProps"
+			sendWA(contToSend, mensaje)
+			if ( contIntToSend === sig + 1 ) {
+				setTimeout ( function(){
+					systStatus = "";
+					contCheck = [];
+					contIntToSend = 0;
+					show__contacts = false;
+					sig = 0;
+					contFalt = 0;
+					return
+				}, 2000);
+			};
+				sig ++
+		};
+
+		//  Send WhatshApp with Message and Property
+		async function sendWA(contact: Contact, mensaje: string) {
+			saludoHora = diaTarde();
+			let contacto = capitalize(contact.name)
+			let url = (property.public_url).replace('easybroker.com/mx/listings', 'matchhome.net/property');
+			let message = `${url}    ${contacto}. ${saludoHora}  ${mensaje}`;
+			let tel = contact.telephon
+			sendWhatsApp(tel, message)
+			let binnacle = {"date": Date.now(), "comment": property.nameProperty, "to": contact.telephon, "action": "Propiedad enviada: "}
+			// try {
+			// 	const binnacleToAdd = collection(db, "binnacles")
+			// 	await addDoc(binnacleToAdd, binnacle);					
+			// } catch (error) {
+			// 	console.log(error);
+			// };
+			// console.log(binnacle, "binnacle desde sendWA")
+
+			if(systStatus === "sendPropToContacts"){
+				contacto = "";
+				// listToRender(property, currContList)
+			}
+		}
+
+	function sendWhatsApp(tel: string, message: string) {
+	
+			const url = `https://wa.me/${tel}?text=${encodeURIComponent(message)}`;
+			window.open(url, '_blank');
+
+				//	este comando abre la aplicación de WhatsApp directamente en la computadora, pero carga el mensaje
+				// 	window.location.href = `whatsapp://send?phone=${tel}&text=${encodeURIComponent(message)}`;
+	}
+
+
+	function sendWhatsApp2(){
+		console.log("contact.telephon, mensaje")
+	}
+
+
+
 
 	function selectAll(e: Event) {
 		const target = e.target as HTMLInputElement;
@@ -101,6 +156,11 @@
 			contCheck = [];
 		}
 	};
+
+	function urlPublic(public_url: string) {
+		publicUrl = (public_url).replace('easybroker.com/mx/listings', 'matchhome.net/property')
+	}
+	// urlPublic()
 		
 </script>
 
@@ -146,7 +206,7 @@
 								element="button"
 								variant="outline"
 								disabled={isLoading}
-								on:click={handleFindContacts}>
+								on:click={() => handleFindContacts(property)}>
 								Buscar Interesados <Search color=var(--accent-color) size="18"/>
 							</Button>
 						
@@ -154,7 +214,7 @@
 								element="button"
 								variant="outline"
 								disabled={isLoading}
-								on:click={sendWhatsApp}>
+								on:click={() => sendWhatsApp2()}>
 								Enviar WhatsApp <Send color=var(--accent-color) size="18"/>
 							</Button>
 						</div>
