@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Contact } from '$lib/types';
-  import { CardContact } from '$components'
+  import { CardContact, Button } from '$components'
   
   export let data;
 
@@ -9,6 +9,13 @@
 </script>
   
   <h3>fbContacts</h3>
+  <Button 
+    element="a"
+    variant="outline"
+    href="/fbContacts/addFbContact"		
+    >
+			Agregar Contacto <span class="visually-hidden">Items</span>
+	</Button>
 
   <div class="cards__container">
     {#each fbContacts as contact}

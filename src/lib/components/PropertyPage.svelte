@@ -30,7 +30,7 @@
 		<p>Precio: {prcice}</p>
 		<p>{features}</p>
 		<p>{areas}</p>
-		<slot name="meta" />
+		<!-- <slot name="meta" /> -->
 	</div>
 
 </div>

@@ -3,7 +3,7 @@ import { dbContacts } from '$lib/firebase/firebase.js';
 import { redirect } from '@sveltejs/kit';
 
 
-console.log(dbContacts, "contacts desde layout server");
+// console.log(dbContacts, "contacts desde layout server");
 // console.log(auth);
 
 export const load: LayoutServerLoad = async ({ fetch, cookies }) => {

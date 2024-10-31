@@ -36,6 +36,13 @@
 	}
 
 </script>
+<Button 
+			element="a"
+				variant="outline"
+				href="/addProperty"		
+			>
+			Agregar Propiedad <span class="visually-hidden">Items</span>
+	</Button>
 
 <h4>Ingresaste como {$page.data.first_name}</h4>
 

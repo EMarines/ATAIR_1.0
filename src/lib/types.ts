@@ -22,7 +22,7 @@ export interface Contact {
   selecTP: string;      // Tipo de propiedad
   contactType: string;  // Modo de contacto
   contactStage: string; // Etapa del cliente
-  createdAt: string;    // Fecha de alta
+  createdAt: number;    // Fecha de alta
   locaProperty?: string [], // Localicacion buscada
   tagsProperty?: string [], // Etiquetas
   sendedProperties?: string [],  // Propiedades enviadas,
@@ -30,7 +30,7 @@ export interface Contact {
 };
 export interface Binnacles {
   comment: string;
-  date: string;
+  date: number;
   action: string;
   to: string;
   id: string;

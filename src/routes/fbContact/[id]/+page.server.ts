@@ -1,10 +1,20 @@
-import { getContacts } from '$lib/firebase/fbContacts.js';
+import { getContacts, getBinnacle } from '$lib/firebase/fbContacts.js';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
   const contacts = await getContacts();
   const contact = contacts.find(contact => contact.id === params.id);
+  // const contactTelephon = contact?.telephon;
 
-  console.log(contact, params, "contact desde fbContact/[id]/+page.server.ts");
-  return { contact };
+  const binnacle = await getBinnacle();
+
+  // const binnacle = totalBinnacle.filter(binn => binn.to === contactTelephon);
+
+
+  
+
+  return { 
+    contact,
+    binnacle
+  };
 } 

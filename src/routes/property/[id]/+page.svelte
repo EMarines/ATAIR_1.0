@@ -182,9 +182,9 @@
 				}
 				>
 				
-				<p class="meta" slot="meta">
+				<!-- <p class="meta" slot="meta">
 					<span class="date">Alta el : {new Date(property.created_at).toLocaleDateString('en', {dateStyle: 'medium'})}
-				</p>
+				</p> -->
 
 			{#if !show__contacts}
 
@@ -192,11 +192,11 @@
 						
 					<div class="credits">
 						<p class="date">
-							{new Date(property.created_at).toLocaleDateString('en', {
+							{new Date(property.created_at).toLocaleDateString('es', {
 								dateStyle: 'medium'
 							})}
 						</p>
-						<span class="artists">
+						<span>
 							{property.tags.length} Etiqueta{property.tags.length > 1 ? 's' : ''}: {property.tags.join(', ')}
 						</span>
 						<p>{property.description}</p>

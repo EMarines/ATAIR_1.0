@@ -1,6 +1,8 @@
 @use 'functions';
 @use '@unsass/breakpoint';
 @import '@fontsource/metropolis';
+@import '@fontsource/metropolis/100';
+@import '@fontsource/metropolis/200';
 @import '@fontsource/metropolis/300';
 @import '@fontsource/metropolis/500';
 @import '@fontsource/metropolis/600';
@@ -142,3 +144,46 @@ a {
 		overflow: hidden;
 	}
 }
+
+// Iconos
+
+
+.icono {
+	background-color: transparent;
+	border: none;
+	color: blue;
+	cursor: pointer;
+	padding: 5px;
+	width: functions.toRem(32);
+	height: functions.toRem(32);
+	transition: all 0.3s ease;
+	
+		&:hover {
+			color: var(--warning);
+		}
+		
+		&:active {
+			transform: scale(2);
+		}
+}
+
+.iconos .trash {
+	color: var(--error);
+	
+	&:hover {
+		color: var(--warning);
+	}
+}
+
+// scrollbar
+.textarea__msg::-webkit-scrollbar {
+	width: 6px;
+	border: none;
+}
+
+.textarea__msg::-webkit-scrollbar-button:start:decrement,
+.textarea__msg::-webkit-scrollbar-button:end:increment {
+	height: 10px;
+}
+.textarea__msg::-webkit-scrollbar-track{background: var(--dark-gray);}
+.textarea__msg::-webkit-scrollbar-thumb{background: var(--accent-color);}

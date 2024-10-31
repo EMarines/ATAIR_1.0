@@ -91,14 +91,14 @@
 		p {
 			font-size: functions.toRem(20);
 		}
-		.buttons {
-			margin-top: 40px;
-			:global(.button) {
-				margin-right: 10px;
-				padding: 10px 20px;
-				text-transform: uppercase;
-			}
-		}
+		// .buttons {
+		// 	margin-top: 40px;
+		// 	:global(.button) {
+		// 		margin-right: 10px;
+		// 		padding: 10px 20px;
+		// 		text-transform: uppercase;
+		// 	}
+		// }
 		.logo {
 			width: 30%;
 			max-width: 100%;

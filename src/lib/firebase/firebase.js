@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth';
 
+
+// Proyecto Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyCkuw82zTqtiPDp3eS2qwGr8UUQFDBBglM",
   authDomain: "curso-svelte-58c5d.firebaseapp.com",
@@ -10,6 +12,20 @@ const firebaseConfig = {
   messagingSenderId: "1067367490239",
   appId: "1:1067367490239:web:8a8aeae384fa8319515c0a"
 };
+
+
+// // Match Home Firebase Config
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDGi3ndUC1b4SFNstliSSVryu7_ymXEkZc",
+//   authDomain: "match-home-7d1f9.firebaseapp.com",
+//   databaseURL: "https://match-home-7d1f9-default-rtdb.firebaseio.com",
+//   projectId: "match-home-7d1f9",
+//   storageBucket: "match-home-7d1f9.appspot.com",
+//   messagingSenderId: "747751099607",
+//   appId: "1:747751099607:web:29d1e5beda87c847dfb492"
+// };
+
+
 
 
 const app = initializeApp(firebaseConfig);
